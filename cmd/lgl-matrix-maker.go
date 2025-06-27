@@ -31,40 +31,31 @@ type Layer struct {
 	Mode            string  `json:"mode"`
 	Sort            int16   `json:"sort"`
 	ProcessMethod   string  `json:"processMethod"`
-	LaserType       string  `json:"laserType"`
 	MaterialId      string  `json:"materialId"`
-	Material        string  `json:"material"`
-	Thickness       int16   `json:"thickness"`
 	IsCrossed       bool    `json:"isCrossed"`
-	IsOverscan      bool    `json:"isOverscan"`
-	OverScanPer     float32 `json:"overScanPer"`
-	ImageMode       string  `json:"imageMode"`
-	ScanAngle       float32 `json:"scanAngle"`
 	IsLocked        bool    `json:"isLocked"`
-	KerfOffset      int16   `json:"kerfOffset"`
 	IsBidirectional bool    `json:"isBidirectional"`
 }
 
 type Element struct {
-	Id              string   `json:"id"`
-	Type            string   `json:"type"`
-	Angle           int16    `json:"angle"`
-	Selectable      bool     `json:"selectable"`
-	Visible         bool     `json:"visible"`
-	LayerId         string   `json:"layerId"`
-	IsLocked        bool     `json:"isLocked"`
-	IsOutWorkSpace  bool     `json:"isOutWorkSpace"`
-	LineColor       string   `json:"lineColor"`
-	Width           int16    `json:"width"`
-	Height          int16    `json:"height"`
-	TransformMatrix [6]int16 `json:"transformMatrix"`
+	Id              string     `json:"id"`
+	Type            string     `json:"type"`
+	Selectable      bool       `json:"selectable"`
+	Visible         bool       `json:"visible"`
+	LayerId         string     `json:"layerId"`
+	IsLocked        bool       `json:"isLocked"`
+	IsOutWorkSpace  bool       `json:"isOutWorkSpace"`
+	LineColor       string     `json:"lineColor"`
+	Width           int16      `json:"width"`
+	Height          int16      `json:"height"`
+	TransformMatrix [6]float32 `json:"transformMatrix"`
 }
 
 type LglStruct struct {
-	Version   string `json:"version"`
+	Version   string    `json:"version"`
 	LaserArea LaserArea `json:"laserArea"`
-	Layers    []Layer `json:"layers"`
-	Elements  []Element `json:"element"`
+	Layers    []Layer   `json:"layers"`
+	Elements  []Element `json:"elements"`
 }
 
 func main() {
@@ -81,12 +72,12 @@ func main() {
 	var speedMin int
 	flag.IntVar(&speedMin, "sm", 1000, "first tile, minimum speed")
 	var quality float64
-	 flag.Float64Var(&quality, "q", 0.091, "EngraveQuality")
+	flag.Float64Var(&quality, "q", 0.091, "EngraveQuality")
 
-	var width int
-	flag.IntVar(&width, "w", 5, "tile width in mm")
-	var space int
-	flag.IntVar(&space, "s", 2, "space inbetween tiles in mm")
+	var width float64
+	flag.Float64Var(&width, "w", 5, "tile width in mm")
+	var space float64
+	flag.Float64Var(&space, "s", 2, "space inbetween tiles in mm")
 	var areaX int
 	flag.IntVar(&areaX, "ax", 100, "work area x width in mm")
 	var areaY int
@@ -95,16 +86,16 @@ func main() {
 	flag.Parse()
 
 	//var permutations = x * y
-	var elements = make([]Element,0)
+	var elements = make([]Element, 0)
 	var layers = make([]Layer, 0)
 
 	var order = 0
 	for xidx := 0; xidx < x; xidx++ {
 		for yidx := 0; yidx < y; yidx++ {
-			xpos := int16((space * (xidx + 1)) + (xidx * width))
-			ypos := int16((space * (yidx + 1)) + (yidx * width))
+			xpos := (width / 2) + (space * float64(xidx+1)) + (width * float64(xidx))
+			ypos := (width / 2) + (space * float64(yidx+1)) + (float64(yidx) * width)
 			power := (xidx * powerIncrements) + powerMin
-			yIdxInverted := (y-1-yidx)
+			yIdxInverted := (y - 1 - yidx)
 			speed := (yIdxInverted * speedIncrements) + speedMin
 			order += order
 
@@ -113,7 +104,6 @@ func main() {
 				Id:              uuid.NewString(),
 				LayerId:         layerId,
 				Type:            "shape-rect",
-				Angle:           0,
 				Selectable:      true,
 				Visible:         true,
 				IsLocked:        false,
@@ -121,12 +111,12 @@ func main() {
 				LineColor:       "#00e000",
 				Width:           int16(width),
 				Height:          int16(width),
-				TransformMatrix: [6]int16{1, 0, 0, 1, xpos, ypos},
+				TransformMatrix: [6]float32{1, 0, 0, 1, float32(xpos), float32(ypos)},
 			})
 			layers = append(layers, Layer{
 				Id:              layerId,
 				Name:            fmt.Sprintf("P:%d,S:%d", power, speed),
-				Type:            "Line",
+				Type:            "Fill",
 				IsOutputEnabled: true,
 				IsAirEnable:     false,
 				Height:          int16(width),
@@ -139,17 +129,9 @@ func main() {
 				Mode:            "Fill",
 				Sort:            int16(order),
 				ProcessMethod:   "Engrave",
-				LaserType:       "",
 				MaterialId:      "-1",
-				Material:        "",
-				Thickness:       0,
 				IsCrossed:       false,
-				IsOverscan:      false,
-				OverScanPer:     2.5,
-				ImageMode:       "Stucki",
-				ScanAngle:       0,
 				IsLocked:        false,
-				KerfOffset:      0,
 				IsBidirectional: true,
 			})
 		}
@@ -158,15 +140,15 @@ func main() {
 		Version: "1.2.1",
 		LaserArea: LaserArea{
 			Height: int16(areaY),
-			Width: int16(areaX),
+			Width:  int16(areaX),
 		},
 		Elements: elements,
-		Layers: layers,
+		Layers:   layers,
 	}
-	b, err := json.Marshal(allOfIt)
+	b, err := json.MarshalIndent(allOfIt, "", "  ")
 	if err != nil {
 		fmt.Printf("Error: %s", err)
-		return;
+		return
 	}
 	//fmt.Println(string(b))
 
