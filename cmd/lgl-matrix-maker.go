@@ -124,7 +124,7 @@ func main() {
 				TransformMatrix: [6]int16{1, 0, 0, 1, xpos, ypos},
 			})
 			layers = append(layers, Layer{
-				Id:              uuid.NewString(),
+				Id:              layerId,
 				Name:            fmt.Sprintf("P:%d,S:%d", power, speed),
 				Type:            "Line",
 				IsOutputEnabled: true,
