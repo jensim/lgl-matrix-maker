@@ -94,9 +94,9 @@ func main() {
 
 	flag.Parse()
 
-	var permutations = x * y
-	var elements = make([]Element, permutations)
-	var layers = make([]Layer, permutations)
+	//var permutations = x * y
+	var elements = make([]Element,0)
+	var layers = make([]Layer, 0)
 
 	var order = 0
 	for xidx := 0; xidx < x; xidx++ {

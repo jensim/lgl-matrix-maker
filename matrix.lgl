@@ -1,1 +1,61 @@
-{"version":"1.2.1","laserArea":{"height":100,"width":100},"layers":[{"id":"","name":"","type":"","isOutputEnabled":false,"isAirEnable":false,"height":0,"width":0,"color":"","laserPower":0,"laserSpeed":0,"engraveQuality":0,"engraveCount":0,"mode":"","sort":0,"processMethod":"","laserType":"","materialId":"","material":"","thickness":0,"isCrossed":false,"isOverscan":false,"overScanPer":0,"imageMode":"","scanAngle":0,"isLocked":false,"kerfOffset":0,"isBidirectional":false},{"id":"626ac5cd-6905-42a6-8a62-b2515085ba3f","name":"P:10,S:1000","type":"Line","isOutputEnabled":true,"isAirEnable":false,"height":5,"width":5,"color":"#00e000","laserPower":10,"laserSpeed":1000,"engraveQuality":0.091,"engraveCount":1,"mode":"Fill","sort":0,"processMethod":"Engrave","laserType":"","materialId":"-1","material":"","thickness":0,"isCrossed":false,"isOverscan":false,"overScanPer":2.5,"imageMode":"Stucki","scanAngle":0,"isLocked":false,"kerfOffset":0,"isBidirectional":true}],"element":[{"id":"","type":"","angle":0,"selectable":false,"visible":false,"layerId":"","isLocked":false,"isOutWorkSpace":false,"lineColor":"","width":0,"height":0,"transformMatrix":[0,0,0,0,0,0]},{"id":"e956077d-dd5b-4ed0-98fe-a4437afdcf16","type":"shape-rect","angle":0,"selectable":true,"visible":true,"layerId":"8339d6da-3cea-42ed-aab3-be7bf8de034d","isLocked":false,"isOutWorkSpace":false,"lineColor":"#00e000","width":5,"height":5,"transformMatrix":[1,0,0,1,2,2]}]}
+{
+    "version": "1.2.1",
+    "laserArea": {
+        "height": 100,
+        "width": 100
+    },
+    "layers": [
+        {
+            "id": "47d0a96e-fef7-466d-bd52-6452cf00c428",
+            "name": "P:10,S:1000",
+            "type": "Line",
+            "isOutputEnabled": true,
+            "isAirEnable": false,
+            "height": 5,
+            "width": 5,
+            "color": "#00e000",
+            "laserPower": 10,
+            "laserSpeed": 1000,
+            "engraveQuality": 0.091,
+            "engraveCount": 1,
+            "mode": "Fill",
+            "sort": 0,
+            "processMethod": "Engrave",
+            "laserType": "",
+            "materialId": "-1",
+            "material": "",
+            "thickness": 0,
+            "isCrossed": false,
+            "isOverscan": false,
+            "overScanPer": 2.5,
+            "imageMode": "Stucki",
+            "scanAngle": 0,
+            "isLocked": false,
+            "kerfOffset": 0,
+            "isBidirectional": true
+        }
+    ],
+    "element": [
+        {
+            "id": "e3f4cd5c-1775-4066-b93d-c359d3475f16",
+            "type": "shape-rect",
+            "angle": 0,
+            "selectable": true,
+            "visible": true,
+            "layerId": "7d8429a6-6511-459c-993e-10697b8e8fcf",
+            "isLocked": false,
+            "isOutWorkSpace": false,
+            "lineColor": "#00e000",
+            "width": 5,
+            "height": 5,
+            "transformMatrix": [
+                1,
+                0,
+                0,
+                1,
+                2,
+                2
+            ]
+        }
+    ]
+}
