@@ -1,1 +1,61 @@
-{"version":"1.2.1","laserArea":{"height":100,"width":100},"layers":[{"id":"ef63ec49-c87e-4176-bd10-3a2afa764f06","name":"P:10,S:1000","type":"Line","isOutputEnabled":true,"isAirEnable":false,"height":5,"width":5,"color":"#00e000","laserPower":10,"laserSpeed":1000,"engraveQuality":0.091,"engraveCount":1,"mode":"Fill","sort":0,"processMethod":"Engrave","laserType":"","materialId":"-1","material":"","thickness":0,"isCrossed":false,"isOverscan":false,"overScanPer":2.5,"imageMode":"Stucki","scanAngle":0,"isLocked":false,"kerfOffset":0,"isBidirectional":true}],"element":[{"id":"dea9931a-b28a-4e69-b2a9-77c1ddd7f16a","type":"shape-rect","angle":0,"selectable":true,"visible":true,"layerId":"ef63ec49-c87e-4176-bd10-3a2afa764f06","isLocked":false,"isOutWorkSpace":false,"lineColor":"#00e000","width":5,"height":5,"transformMatrix":[1,0,0,1,2,2]}]}
+{
+    "version": "1.2.1",
+    "laserArea": {
+        "height": 100,
+        "width": 100
+    },
+    "layers": [
+        {
+            "id": "ef63ec49-c87e-4176-bd10-3a2afa764f06",
+            "name": "01",
+            "type": "Line",
+            "isOutputEnabled": true,
+            "isAirEnable": false,
+            "height": 5,
+            "width": 5,
+            "color": "#00e000",
+            "laserPower": 10,
+            "laserSpeed": 1000,
+            "engraveQuality": 0.091,
+            "engraveCount": 1,
+            "mode": "Fill",
+            "sort": 0,
+            "processMethod": "Engrave",
+            "laserType": "",
+            "materialId": "-1",
+            "material": "",
+            "thickness": 0,
+            "isCrossed": false,
+            "isOverscan": false,
+            "overScanPer": 2.5,
+            "imageMode": "Stucki",
+            "scanAngle": 0,
+            "isLocked": false,
+            "kerfOffset": 0,
+            "isBidirectional": true
+        }
+    ],
+    "element": [
+        {
+            "id": "dea9931a-b28a-4e69-b2a9-77c1ddd7f16a",
+            "type": "shape-rect",
+            "angle": 0,
+            "selectable": true,
+            "visible": true,
+            "layerId": "ef63ec49-c87e-4176-bd10-3a2afa764f06",
+            "isLocked": false,
+            "isOutWorkSpace": false,
+            "lineColor": "#00e000",
+            "width": 5,
+            "height": 5,
+            "transformMatrix": [
+                1,
+                0,
+                0,
+                1,
+                2,
+                2
+            ]
+        }
+    ]
+}
