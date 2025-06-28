@@ -82,8 +82,17 @@ func main() {
 	flag.IntVar(&areaX, "ax", 100, "work area x width in mm")
 	var areaY int
 	flag.IntVar(&areaY, "ay", 100, "work area y height in mm")
+	var mode string
+	flag.StringVar(&mode, "mode", "Fill", "\"Fill\" or \"Line\"")
+	var processMethod string
+	flag.StringVar(&processMethod, "method", "Engrave", "\"Cut\", or \"Engrave\"")
 
 	flag.Parse()
+
+	if mode == "Fill" && processMethod == "Cut" {
+		mode = "Line"
+		log.Println("Cut only supports Line mode, mode set to Line")
+	}
 
 	//var permutations = x * y
 	var elements = make([]Element, 0)
@@ -126,9 +135,9 @@ func main() {
 				LaserSpeed:      int16(speed),
 				EngraveQuality:  float32(quality),
 				EngraveCount:    1,
-				Mode:            "Fill",
+				Mode:            mode,
 				Sort:            int16(order),
-				ProcessMethod:   "Engrave",
+				ProcessMethod:   processMethod,
 				MaterialId:      "-1",
 				IsCrossed:       false,
 				IsLocked:        false,
@@ -150,7 +159,6 @@ func main() {
 		fmt.Printf("Error: %s", err)
 		return
 	}
-	//fmt.Println(string(b))
 
 	fileErr := os.WriteFile("matrix.lgl", []byte(b), 0740)
 	if fileErr != nil {
