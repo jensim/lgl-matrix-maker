@@ -60,24 +60,24 @@ type LglStruct struct {
 
 func main() {
 	var x int
-	flag.IntVar(&x, "x", 10, "number of permutations in x, power")
+	flag.IntVar(&x, "x", 20, "number of permutations in x, power")
 	var y int
-	flag.IntVar(&y, "y", 10, "number of permutations in y, speed")
+	flag.IntVar(&y, "y", 20, "number of permutations in y, speed")
 	var powerIncrements int
-	flag.IntVar(&powerIncrements, "pi", 10, "increments in power per tile, measured in %")
+	flag.IntVar(&powerIncrements, "pi", 5, "increments in power per tile, measured in %")
 	var powerMin int
-	flag.IntVar(&powerMin, "pm", 10, "first tile, minimum power")
+	flag.IntVar(&powerMin, "pm", 5, "first tile, minimum power")
 	var speedIncrements int
-	flag.IntVar(&speedIncrements, "si", 1000, "increments in speed per tile, measured in mm/s")
+	flag.IntVar(&speedIncrements, "si", 200, "increments in speed per tile, measured in mm/s")
 	var speedMin int
-	flag.IntVar(&speedMin, "sm", 1000, "first tile, minimum speed")
+	flag.IntVar(&speedMin, "sm", 3000, "first tile, minimum speed")
 	var quality float64
-	flag.Float64Var(&quality, "q", 0.091, "EngraveQuality")
+	flag.Float64Var(&quality, "q", 0.01, "EngraveQuality")
 
 	var width float64
-	flag.Float64Var(&width, "w", 5, "tile width in mm")
+	flag.Float64Var(&width, "w", 2.0, "tile width in mm")
 	var space float64
-	flag.Float64Var(&space, "s", 2, "space inbetween tiles in mm")
+	flag.Float64Var(&space, "s", 0.5, "space inbetween tiles in mm")
 	var areaX int
 	flag.IntVar(&areaX, "ax", 100, "work area x width in mm")
 	var areaY int
