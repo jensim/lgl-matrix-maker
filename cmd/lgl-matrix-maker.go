@@ -26,6 +26,7 @@ type Layer struct {
 	Color           string  `json:"color"`
 	LaserPower      uint16  `json:"laserPower"`
 	LaserSpeed      uint32  `json:"laserSpeed"`
+	LaserType	    string  `json:"laserType"`
 	EngraveQuality  float32 `json:"engraveQuality"`
 	EngraveCount    uint16  `json:"engraveCount"`
 	Mode            string  `json:"mode"`
@@ -86,6 +87,8 @@ func main() {
 	flag.StringVar(&mode, "mode", "Fill", "\"Fill\" or \"Line\"")
 	var processMethod string
 	flag.StringVar(&processMethod, "method", "Engrave", "\"Cut\", or \"Engrave\"")
+	var laserType string
+	flag.StringVar(&laserType, "laserType", "BlueLight", "Laser type, e.g., \"BlueLight\", \"RedLight\", etc.")
 
 	flag.Parse()
 
@@ -93,6 +96,10 @@ func main() {
 		mode = "Line"
 		log.Println("Cut only supports Line mode, mode set to Line")
 	}
+	if laserType != "BlueLight" && laserType != "RedLight" {
+		log.Println("Unknown laser type used!")
+	}
+
 
 	//var permutations = x * y
 	var elements = make([]Element, 0)
