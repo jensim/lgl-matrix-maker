@@ -25,7 +25,7 @@ type Layer struct {
 	Width           uint16  `json:"width"`
 	Color           string  `json:"color"`
 	LaserPower      uint16  `json:"laserPower"`
-	LaserSpeed      uint32  `json:"laserSpeed"`
+	LaserSpeed      float64 `json:"laserSpeed"`
 	LaserType	    string  `json:"laserType"`
 	EngraveQuality  float32 `json:"engraveQuality"`
 	EngraveCount    uint16  `json:"engraveCount"`
@@ -36,6 +36,8 @@ type Layer struct {
 	IsCrossed       bool    `json:"isCrossed"`
 	IsLocked        bool    `json:"isLocked"`
 	IsBidirectional bool    `json:"isBidirectional"`
+	IsCrossed       bool    `json:"isCrossed"`
+	IsOverscan      bool    `json:"isOverscan"`
 }
 
 type Element struct {
@@ -68,10 +70,10 @@ func main() {
 	flag.IntVar(&powerIncrements, "pi", 5, "increments in power per tile, measured in %")
 	var powerMin int
 	flag.IntVar(&powerMin, "pm", 5, "first tile, minimum power")
-	var speedIncrements int
-	flag.IntVar(&speedIncrements, "si", 200, "increments in speed per tile, measured in mm/s")
-	var speedMin int
-	flag.IntVar(&speedMin, "sm", 3000, "first tile, minimum speed")
+	var speedIncrements float64
+	flag.Float64Var(&speedIncrements, "si", 200, "increments in speed per tile, measured in mm/s")
+	var speedMin float64
+	flag.Float64Var(&speedMin, "sm", 3000, "first tile, minimum speed")
 	var quality float64
 	flag.Float64Var(&quality, "q", 0.01, "EngraveQuality")
 
@@ -136,11 +138,13 @@ func main() {
 				Type:            "Fill",
 				IsOutputEnabled: true,
 				IsAirEnable:     false,
+				IsCrossed:       false,
+				IsOverscan:      false,
 				Height:          uint16(width),
 				Width:           uint16(width),
 				Color:           "#00e000",
 				LaserPower:      uint16(power),
-				LaserSpeed:      uint32(speedMmPerMin),
+				LaserSpeed:      speedMmPerMin,
 				LaserType:       laserType,
 				EngraveQuality:  float32(quality),
 				EngraveCount:    1,
