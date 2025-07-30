@@ -141,6 +141,7 @@ func main() {
 				Color:           "#00e000",
 				LaserPower:      uint16(power),
 				LaserSpeed:      uint32(speedMmPerMin),
+				LaserType:       laserType,
 				EngraveQuality:  float32(quality),
 				EngraveCount:    1,
 				Mode:            mode,
