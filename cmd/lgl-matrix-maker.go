@@ -11,8 +11,8 @@ import (
 )
 
 type LaserArea struct {
-	Height int16 `json:"height"`
-	Width  int16 `json:"width"`
+	Height uint16 `json:"height"`
+	Width  uint16 `json:"width"`
 }
 
 type Layer struct {
@@ -21,15 +21,15 @@ type Layer struct {
 	Type            string  `json:"type"`
 	IsOutputEnabled bool    `json:"isOutputEnabled"`
 	IsAirEnable     bool    `json:"isAirEnable"`
-	Height          int16   `json:"height"`
-	Width           int16   `json:"width"`
+	Height          uint16  `json:"height"`
+	Width           uint16  `json:"width"`
 	Color           string  `json:"color"`
-	LaserPower      int16   `json:"laserPower"`
-	LaserSpeed      int16   `json:"laserSpeed"`
+	LaserPower      uint16  `json:"laserPower"`
+	LaserSpeed      uint32  `json:"laserSpeed"`
 	EngraveQuality  float32 `json:"engraveQuality"`
-	EngraveCount    int16   `json:"engraveCount"`
+	EngraveCount    uint16  `json:"engraveCount"`
 	Mode            string  `json:"mode"`
-	Sort            int16   `json:"sort"`
+	Sort            uint16  `json:"sort"`
 	ProcessMethod   string  `json:"processMethod"`
 	MaterialId      string  `json:"materialId"`
 	IsCrossed       bool    `json:"isCrossed"`
@@ -46,8 +46,8 @@ type Element struct {
 	IsLocked        bool       `json:"isLocked"`
 	IsOutWorkSpace  bool       `json:"isOutWorkSpace"`
 	LineColor       string     `json:"lineColor"`
-	Width           int16      `json:"width"`
-	Height          int16      `json:"height"`
+	Width           uint16     `json:"width"`
+	Height          uint16     `json:"height"`
 	TransformMatrix [6]float32 `json:"transformMatrix"`
 }
 
@@ -105,7 +105,8 @@ func main() {
 			ypos := (width / 2) + (space * float64(yidx+1)) + (float64(yidx) * width)
 			power := (xidx * powerIncrements) + powerMin
 			yIdxInverted := (y - 1 - yidx)
-			speed := (yIdxInverted * speedIncrements) + speedMin
+			speedMmPerSec := (yIdxInverted * speedIncrements) + speedMin
+			speedMmPerMin := speedMmPerSec * 60
 			order += order
 
 			layerId := uuid.NewString()
@@ -118,25 +119,25 @@ func main() {
 				IsLocked:        false,
 				IsOutWorkSpace:  false,
 				LineColor:       "#00e000",
-				Width:           int16(width),
-				Height:          int16(width),
+				Width:           uint16(width),
+				Height:          uint16(width),
 				TransformMatrix: [6]float32{1, 0, 0, 1, float32(xpos), float32(ypos)},
 			})
 			layers = append(layers, Layer{
 				Id:              layerId,
-				Name:            fmt.Sprintf("P:%d,S:%d", power, speed),
+				Name:            fmt.Sprintf("P:%d,S:%d", power, speedMmPerSec),
 				Type:            "Fill",
 				IsOutputEnabled: true,
 				IsAirEnable:     false,
-				Height:          int16(width),
-				Width:           int16(width),
+				Height:          uint16(width),
+				Width:           uint16(width),
 				Color:           "#00e000",
-				LaserPower:      int16(power),
-				LaserSpeed:      int16(speed),
+				LaserPower:      uint16(power),
+				LaserSpeed:      uint32(speedMmPerMin),
 				EngraveQuality:  float32(quality),
 				EngraveCount:    1,
 				Mode:            mode,
-				Sort:            int16(order),
+				Sort:            uint16(order),
 				ProcessMethod:   processMethod,
 				MaterialId:      "-1",
 				IsCrossed:       false,
@@ -148,8 +149,8 @@ func main() {
 	allOfIt := LglStruct{
 		Version: "1.2.1",
 		LaserArea: LaserArea{
-			Height: int16(areaY),
-			Width:  int16(areaX),
+			Height: uint16(areaY),
+			Width:  uint16(areaX),
 		},
 		Elements: elements,
 		Layers:   layers,
